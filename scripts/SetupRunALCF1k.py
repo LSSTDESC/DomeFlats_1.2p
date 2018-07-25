@@ -8,11 +8,15 @@ runBase = 'run_%03d.sh'
 nodeBase = 'node_%04d.sh'
 submitName = 'submit.sh'
 
+hostBase = 'host_%04d.txt'
+
 def setup_node(outDir, visitDirList, nodeID):
     nodeName = nodeBase % nodeID
+    hostName = hostBase % nodeID
     outName = outDir + '/' + nodeName
     f = open(outName, 'w')
     f.write('#! /bin/bash\n')
+    f.write('cat /etc/hostname > %s\n' % hostName)
     for visitDir in visitDirList:
         vdir = os.path.abspath(visitDir) + '/'
         rdir = vdir + rundirName
