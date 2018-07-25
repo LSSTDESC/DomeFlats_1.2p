@@ -39,7 +39,7 @@ def setup_visit(phosimdir, threads, visitdir):
         f.write('-w %s \\\n' % wdir)
         f.write('-o %s \\\n' % odir)
         f.write('-t %d \\\n' % threads)
-        f.write('-e 0 \\\n')
+        #f.write('-e 0 \\\n')
         f.write('1> %s \\\n' % stdoutName)
         f.write('2> %s\n' % stderrName)
         f.close()
