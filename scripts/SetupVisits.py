@@ -9,7 +9,6 @@ obshistidf =  100000
 flatName = 'flat'
 sensorName = 'sensor_list.txt'
 cmdName = 'commands.txt'
-
 indirName = 'inputs'
 workdirName = 'work'
 outdirName = 'output'

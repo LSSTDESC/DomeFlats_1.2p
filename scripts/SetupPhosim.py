@@ -39,8 +39,9 @@ def setup_visit(phosimdir, threads, visitdir):
         stderrName = (odir + stderrBase)%sensor
         f = open(runName, 'w')
         f.write('#! /bin/bash\n')
-        f.write('./phosim \\\n%s \\\n-c %s \\\n-w %s \\\n-o %s \\\n-b %s \\\n-d %s \\\n-t %d \\\n-e 0\\\n1> %s\\\n2> %s\n' % (idir+flatName, idir+cmdName, wdir, odir, bdir, ddir, threads, stdoutName, stderrName) )
+        f.write('./phosim \\\n%s \\\n-c %s \\\n-w %s \\\n-o %s \\\n-b %s \\\n-d %s \\\n-t %d \\\n-e 0 \\\n1> %s \\\n2> %s\n' % (idir+flatName, idir+cmdName, wdir, odir, bdir, ddir, threads, stdoutName, stderrName) )
         f.close()
+        os.chmod(runName,0755)
     return
 
 def setup_series(phosimdir, threads, prefix):
