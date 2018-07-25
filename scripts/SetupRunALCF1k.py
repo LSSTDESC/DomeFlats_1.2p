@@ -23,29 +23,37 @@ def setup_node(outDir, visitDirList, nodeID):
     os.chmod(outName,0755)
     return
 
-def setup_run(outDir, visitDirList):
+def setup_run(allocation, queue, time, nnodes, threads, outDir, visitDirList):
     os.makedirs(outDir)
-    for i in xrange(189):
+    for i in xrange(nnodes):
         setup_node(outDir, visitDirList, i)
     outName = outDir + '/' + submitName
     f = open(outName, 'w')
     f.write('#! /bin/bash\n')
-    f.write('#COBALT -t 03:00:00\n')
-    f.write('#COBALT -n 189\n')
-    f.write('#COBALT -q default\n')
-    f.write('#COBALT -A LSSTADSP_DESC\n')
-    for i in xrange(189):
+    f.write('#COBALT -A %s\n' % allocation)
+    f.write('#COBALT -q %s\n' % queue)
+    f.write('#COBALT -t %s\n' % time)
+    f.write('#COBALT -n %d\n' % nnodes)
+    for i in xrange(nnodes):
         nodeName = nodeBase % i
-        f.write('aprun -n 1 -N 1 -d 256 -j 4 ./%s &\nsleep 1\n' % nodeName)
+        f.write('date\n')
+        f.write('aprun -n 1 -N 1 -d %d -j 4 ./%s &\n' % (threads, nodeName))
+        f.write('sleep 1\n')
     f.write('wait\n')
+    f.write('date\n')
     f.close()
     os.chmod(outName, 0755)
     return
 
 if __name__ == '__main__':
-    if len(sys.argv) < 3:
-        print('USAGE: %s <outDir> <visitDir1> [visitDir2] ...\n'%sys.argv[0])
+    if len(sys.argv) < 7:
+        print('USAGE: %s <allocation> <queue> <time> <nnodes> <threads> <outDir> <visitDir1> [visitDir2] ...' % sys.argv[0])
         sys.exit(-1)
-    outDir = sys.argv[1]
-    visitDirList = sys.argv[2:]
-    setup_run(outDir, visitDirList)
+    allocation = sys.argv[1]
+    queue = sys.argv[2]
+    time = sys.argv[3]
+    nnodes = int(sys.argv[4])
+    threads = int(sys.argv[5])
+    outDir = sys.argv[6]
+    visitDirList = sys.argv[7:]
+    setup_run(allocation, queue, time, nnodes, threads, outDir, visitDirList)
