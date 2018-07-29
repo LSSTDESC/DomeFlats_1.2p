@@ -14,12 +14,8 @@ workdirName = 'work'
 outdirName = 'output'
 rundirName = 'run'
 
-base_required = {'minsource' : 0, 'telconfig' : 2, 'nsnap' : 1, 'domewave' : 0.0, 'domeint' : 18.0}
-
 mjd = 59580
-base_optional = {'mjd' : mjd, 'raydensity' : 0.0, 'rotationjitter' : 0.0, 'elevationjitter' : 0.0, 'azimuthjitter' : 0.0}
-# windjitter?
-# shuttererror?
+d_base = {'minsource' : 0, 'telconfig' : 2, 'nsnap' : 1, 'domewave' : 0.0, 'domeint' : 18.0, 'mjd' : mjd}
 
 def merge_dicts(*dict_args):
     """
@@ -65,7 +61,7 @@ def ic_randoms(obshistid):
 def ic(obshistid, band, counts, outName):
     d_randoms = ic_randoms(obshistid)
     d_counts = ic_counts(band, counts)
-    d = merge_dicts(base_required, d_counts, d_randoms, base_optional)
+    d = merge_dicts(d_base, d_counts, d_randoms)
     dict2catalog(d, outName)
     return
 

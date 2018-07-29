@@ -27,7 +27,7 @@ def setup_node(outDir, visitDirList, nodeID):
     os.chmod(outName,0755)
     return
 
-def setup_run(allocation, queue, time, nnodes, threads, outDir, visitDirList):
+def setup_run(allocation, queue, time, nnodes, outDir, visitDirList):
     os.makedirs(outDir)
     for i in xrange(nnodes):
         setup_node(outDir, visitDirList, i)
@@ -41,7 +41,7 @@ def setup_run(allocation, queue, time, nnodes, threads, outDir, visitDirList):
     for i in xrange(nnodes):
         nodeName = nodeBase % i
         f.write('date\n')
-        f.write('aprun -n 1 -N 1 -d %d -j 4 ./%s &\n' % (threads, nodeName))
+        f.write('aprun -n 1 -N 1 -d 256 -j 4 ./%s &\n' % nodeName)
         f.write('sleep 1\n')
     f.write('wait\n')
     f.write('date\n')
@@ -51,13 +51,12 @@ def setup_run(allocation, queue, time, nnodes, threads, outDir, visitDirList):
 
 if __name__ == '__main__':
     if len(sys.argv) < 7:
-        print('USAGE: %s <allocation> <queue> <time> <nnodes> <threads> <outDir> <visitDir1> [visitDir2] ...' % sys.argv[0])
+        print('USAGE: %s <allocation> <queue> <time> <nnodes> <outDir> <visitDir1> [visitDir2] ...' % sys.argv[0])
         sys.exit(-1)
     allocation = sys.argv[1]
     queue = sys.argv[2]
     time = sys.argv[3]
     nnodes = int(sys.argv[4])
-    threads = int(sys.argv[5])
-    outDir = sys.argv[6]
-    visitDirList = sys.argv[7:]
-    setup_run(allocation, queue, time, nnodes, threads, outDir, visitDirList)
+    outDir = sys.argv[5]
+    visitDirList = sys.argv[6:]
+    setup_run(allocation, queue, time, nnodes, outDir, visitDirList)

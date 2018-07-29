@@ -20,11 +20,3 @@ clearclouds
 
 # Number of sources handled by a single thread
 sourceperthread 1
-
-# turn off cosmic rays?
-raydensity 0.0
-
-# turn off telescope position jitter
-rotationjitter 0.0
-azimuthjitter 0.0
-elevationjitter 0.0

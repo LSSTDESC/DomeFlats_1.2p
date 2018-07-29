@@ -32,6 +32,7 @@ def setup_visit(phosimdir, threads, visitdir):
         stderrName = (odir + stderrBase)%sensor
         f = open(runName, 'w')
         f.write('#! /bin/bash\n')
+        f.write('time \\\n')
         f.write('python %sphosim.py \\\n' % pdir)
         f.write('%s \\\n' % (idir+flatName))
         f.write('-c %s \\\n' % (idir+cmdName))
