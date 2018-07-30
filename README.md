@@ -12,3 +12,4 @@ band   WFD_center   uDDF_center
  y          54756        236889
  ```
  
+Robert Lupton, 2018/07/05: You wouldn't usually bother, just take enough flats that the counts were 100\* the sky (so 50\* or 200\* wouldn't be important!).   We can probably use 10\*sky, or a 5% loss in SN.  Maybe 5\*sky (10%).  I did that right, didn't I?
