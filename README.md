@@ -1,6 +1,8 @@
 # DomeFlats_1.2p
 
-Jim Chiang, 2018/07/06: ok, here are e-/pixel values (assuming 0.2"x0.2" pixels) for two locations on the sky, one at the center of the full protoDC2 region (WFD_center) and the other at the center of the uDDF region, integrated over all of the Run1.2p visits:
+2018-07-05, Robert Lupton: You wouldn't usually bother, just take enough flats that the counts were 100\* the sky (so 50\* or 200\* wouldn't be important!).   We can probably use 10\*sky, or a 5% loss in SN.  Maybe 5\*sky (10%).  I did that right, didn't I?
+
+2018-07-06, Jim Chiang: ok, here are e-/pixel values (assuming 0.2"x0.2" pixels) for two locations on the sky, one at the center of the full protoDC2 region (WFD_center) and the other at the center of the uDDF region, integrated over all of the Run1.2p visits:
 
 ```
 band   WFD_center   uDDF_center
@@ -12,4 +14,4 @@ band   WFD_center   uDDF_center
  y          54756        236889
  ```
  
-Robert Lupton, 2018/07/05: You wouldn't usually bother, just take enough flats that the counts were 100\* the sky (so 50\* or 200\* wouldn't be important!).   We can probably use 10\*sky, or a 5% loss in SN.  Maybe 5\*sky (10%).  I did that right, didn't I?
+
