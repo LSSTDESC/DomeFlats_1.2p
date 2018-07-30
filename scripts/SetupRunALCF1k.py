@@ -51,7 +51,7 @@ def setup_run(allocation, queue, time, nnodes, outDir, visitDirList):
 
 if __name__ == '__main__':
     if len(sys.argv) < 7:
-        print('USAGE: %s <allocation> <queue> <time> <nnodes> <outDir> <visitDir1> [visitDir2] ...' % sys.argv[0])
+        print('USAGE: %s <allocation> <queue> <time> <nnodes=189> <outDir> <visitDir1> [visitDir2] ...' % sys.argv[0])
         sys.exit(-1)
     allocation = sys.argv[1]
     queue = sys.argv[2]
