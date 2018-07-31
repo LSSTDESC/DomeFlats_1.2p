@@ -22,3 +22,22 @@ r=2 | 170,000 | 340,000 | 1,110,000 | 2,220,000
 i=3 | 220,000 | 440,000 |   840,000 | 1,680,000
 z=4 | 280,000 | 540,000 | 1,050,000 | 2,100,000
 y=5 | 280,000 | 540,000 | 1,180,000 | 2,360,000
+
+Theta queue policy:
+* node count >= 128 nodes (minimum  allocation): maximum 3:00:00 hours
+* node count >= 256 nodes : maximum 6:00:00 hours
+* node count >= 384 nodes : maximum 9:00:00 hours
+* node count >= 640 nodes : maximum 12:00:00 hours
+* node count >= 802 nodes (648 nodes 2018 INCITE) : maximum 24:00:00 hours
+
+Runtime:
+* 1,000 e-/pixel: 1,800-2,000s (longer for y-band)
+* 10,000 e-/pixel: 18,000-20,000s (~5.5 hrs)
+
+visits | nodes
+------ | -----
+1 | 189
+2 | 378
+3 | 567
+4 | 756
+5 | 945
