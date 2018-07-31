@@ -1,6 +1,7 @@
 import sys
 import os
 import os.path
+import glob
 
 rundirName = 'run'
 runBase = 'run_%03d.sh'
@@ -10,12 +11,14 @@ submitName = 'submit.sh'
 
 hostBase = 'host_%04d.txt'
 
-def setup_visit(outDir, visitDir, nnodespervisit, nodeoffset):
+batchDirBase = 'batch_%04d'
+
+def setup_visit(batchDir, visitDir, nnodespervisit, nodeoffset):
     for sensor in xrange(nnodespervisit):
         nodeID = nodeoffset + sensor
         nodeName = nodeBase % nodeID
         hostName = hostBase % nodeID
-        outName = outDir + '/' + nodeName
+        outName = batchDir + '/' + nodeName
         f = open(outName, 'w')
         f.write('#! /bin/bash\n')
         f.write('cat /etc/hostname > %s\n' % hostName)
@@ -28,12 +31,12 @@ def setup_visit(outDir, visitDir, nnodespervisit, nodeoffset):
         os.chmod(outName,0755)
     return
 
-def setup_run(allocation, queue, time, nnodespervisit, outDir, visitDirList):
-    os.makedirs(outDir)
+def setup_batch(allocation, queue, time, nnodespervisit, batchDir, visitDirList):
+    os.makedirs(batchDir)
     nvisit = len(visitDirList)
     for i in xrange(nvisit):
-        setup_visit(outDir, visitDirList[i], nnodespervisit, nnodespervisit*i)
-    outName = outDir + '/' + submitName
+        setup_visit(batchDir, visitDirList[i], nnodespervisit, nnodespervisit*i)
+    outName = batchDir + '/' + submitName
     f = open(outName, 'w')
     f.write('#! /bin/bash\n')
     f.write('#COBALT -A %s\n' % allocation)
@@ -51,14 +54,27 @@ def setup_run(allocation, queue, time, nnodespervisit, outDir, visitDirList):
     os.chmod(outName, 0755)
     return
 
+def chunks(l, n):
+    for i in xrange(0, len(l), n):
+        yield l[i:i + n]
+
+def setup_all(prefix, chunksize, nnodespervisit, allocation, queue, time):
+    visitDirList = glob.glob(prefix+'/5??????')
+    batchID = 0
+    for chunk in chunks(visitDirList, chunksize):
+        batchDir = prefix + '/' + (batchDirBase % batchID)
+        setup_batch(allocation, queue, time, nnodespervisit, batchDir, chunk)
+        batchID += 1
+    return
+
 if __name__ == '__main__':
     if len(sys.argv) < 7:
-        print('USAGE: %s <allocation> <queue> <time> <nnodespervisit=189> <outDir> <visitDir1> [visitDir2] ...' % sys.argv[0])
+        print('USAGE: %s <prefix> <chunksize> <nnodespervisit=189> <allocation> <queue> <time>' % sys.argv[0])
         sys.exit(-1)
-    allocation = sys.argv[1]
-    queue = sys.argv[2]
-    time = sys.argv[3]
-    nnodespervisit = int(sys.argv[4])
-    outDir = sys.argv[5]
-    visitDirList = sys.argv[6:]
-    setup_run(allocation, queue, time, nnodespervisit, outDir, visitDirList)
+    prefix = sys.argv[1]
+    chunksize = int(sys.argv[2])
+    nnodespervisit = int(sys.argv[3])
+    allocation = sys.argv[4]
+    queue = sys.argv[5]
+    time = sys.argv[6]
+    setup_all(prefix, chunksize, nnodespervisit, allocation, queue, time)
