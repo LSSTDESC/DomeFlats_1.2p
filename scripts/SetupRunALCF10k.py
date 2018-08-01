@@ -60,6 +60,7 @@ def chunks(l, n):
 
 def setup_all(prefix, chunksize, nnodespervisit, allocation, queue, time):
     visitDirList = glob.glob(prefix+'/5??????')
+    visitDirList.sort()
     batchID = 0
     for chunk in chunks(visitDirList, chunksize):
         batchDir = prefix + '/' + (batchDirBase % batchID)
