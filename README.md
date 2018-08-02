@@ -32,7 +32,7 @@ y=5 | 280,000 | 540,000 | 1,180,000 | 2,360,000
 Runtime:
 * 10,000 e-/pixel: ~6 hrs (longer for y-band)
 
-Theta queue policy:
+[Theta queue policy](https://www.alcf.anl.gov/user-guides/job-scheduling-policy-xc40-systems#queues):
 * node count >= 128 nodes (minimum  allocation): maximum 3:00:00 hours
 * node count >= 256 nodes : maximum 6:00:00 hours
 * node count >= 384 nodes : maximum 9:00:00 hours
