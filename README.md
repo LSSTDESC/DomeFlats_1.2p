@@ -18,7 +18,7 @@ band   WFD_center   uDDF_center
 
 ## Resource Estimation
 
-[GoogleDoc Spreadsheet Calculator](https://docs.google.com/spreadsheets/d/1ZC6ByCW_KctBI0Q6F12gVjzPJs3mzbUTJGJPALKy2qw/edit?usp=sharing)
+[Google Sheet Calculator](https://docs.google.com/spreadsheets/d/1ZC6ByCW_KctBI0Q6F12gVjzPJs3mzbUTJGJPALKy2qw/edit?usp=sharing)
 
 ## Scheduling
 
