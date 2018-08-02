@@ -18,14 +18,7 @@ band   WFD_center   uDDF_center
 
 ## Resource Estimation
 
-band | 5x WFD | 10x WFD | 5x uDDF | 10x uDDF
----- | ------ | ------- | ------- | --------
-u=0 |   5,000 |  10,000 |    90,000 |   180,000
-g=1 |  35,000 |  70,000 | 1,340,000 | 2,680,000
-r=2 | 170,000 | 340,000 | 1,110,000 | 2,220,000
-i=3 | 220,000 | 440,000 |   840,000 | 1,680,000
-z=4 | 280,000 | 540,000 | 1,050,000 | 2,100,000
-y=5 | 280,000 | 540,000 | 1,180,000 | 2,360,000
+[GoogleDoc Spreadsheet Calculator](https://docs.google.com/spreadsheets/d/1ZC6ByCW_KctBI0Q6F12gVjzPJs3mzbUTJGJPALKy2qw/edit?usp=sharing)
 
 ## Scheduling
 
