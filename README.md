@@ -35,7 +35,7 @@ Runtime:
 Theta queue policy:
 * node count >= 128 nodes (minimum  allocation): maximum 3:00:00 hours
 * node count >= 256 nodes : maximum 6:00:00 hours
-* **node count >= 384 nodes : maximum 9:00:00 hours**
+* node count >= 384 nodes : maximum 9:00:00 hours
 * node count >= 640 nodes : maximum 12:00:00 hours
 * node count >= 802 nodes (648 nodes 2018 INCITE) : maximum 24:00:00 hours
 
