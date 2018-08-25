@@ -1,6 +1,7 @@
 import sys
 import os
 import os.path
+import glob
 
 rundirName = 'run'
 runBase = 'run_%03d.sh'
@@ -9,6 +10,8 @@ nodeBase = 'node_%04d.sh'
 submitName = 'submit.sh'
 
 hostBase = 'host_%04d.txt'
+
+batchDirBase = 'batch_%04d'
 
 def setup_node(outDir, visitDirList, nodeID):
     nodeName = nodeBase % nodeID
@@ -27,7 +30,7 @@ def setup_node(outDir, visitDirList, nodeID):
     os.chmod(outName,0755)
     return
 
-def setup_run(allocation, queue, time, nnodes, outDir, visitDirList):
+def setup_batch(allocation, queue, time, nnodes, outDir, visitDirList):
     os.makedirs(outDir)
     for i in xrange(nnodes):
         setup_node(outDir, visitDirList, i)
@@ -49,14 +52,28 @@ def setup_run(allocation, queue, time, nnodes, outDir, visitDirList):
     os.chmod(outName, 0755)
     return
 
+def chunks(l, n):
+    for i in xrange(0, len(l), n):
+        yield l[i:i + n]
+
+def setup_all(prefix, chunksize, nnodes, allocation, queue, time):
+    visitDirList = glob.glob(prefix+'/5??????')
+    visitDirList.sort()
+    batchID = 0
+    for chunk in chunks(visitDirList, chunksize):
+        batchDir = prefix + '/' + (batchDirBase % batchID)
+        setup_batch(allocation, queue, time, nnodes, batchDir, chunk)
+        batchID += 1
+    return
+
 if __name__ == '__main__':
     if len(sys.argv) < 7:
-        print('USAGE: %s <allocation> <queue> <time> <nnodes=189> <outDir> <visitDir1> [visitDir2] ...' % sys.argv[0])
+        print('USAGE: %s <prefix> <chunksize> <nnodes=189> <allocation> <queue> <time>' % sys.argv[0])
         sys.exit(-1)
-    allocation = sys.argv[1]
-    queue = sys.argv[2]
-    time = sys.argv[3]
-    nnodes = int(sys.argv[4])
-    outDir = sys.argv[5]
-    visitDirList = sys.argv[6:]
-    setup_run(allocation, queue, time, nnodes, outDir, visitDirList)
+    prefix = sys.argv[1]
+    chunksize = int(sys.argv[2])
+    nnodes = int(sys.argv[3])
+    allocation = sys.argv[4]
+    queue = sys.argv[5]
+    time = sys.argv[6]
+    setup_all(prefix, chunksize, nnodes, allocation, queue, time)
