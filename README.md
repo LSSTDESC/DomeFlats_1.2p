@@ -1,6 +1,6 @@
 # DomeFlats_1.2p
 
-## Slack Recap
+## Version 1
 
 2018-07-05, Robert Lupton: You wouldn't usually bother, just take enough flats that the counts were 100\* the sky (so 50\* or 200\* wouldn't be important!).   We can probably use 10\*sky, or a 5% loss in SN.  Maybe 5\*sky (10%).  I did that right, didn't I?
 
@@ -16,14 +16,35 @@ band   WFD_center   uDDF_center
  y          54756        236889
 ```
 
+## Version 2
+
+[Expected Sky Counts (Javier Sanchez)](https://github.com/lsst-pst/syseng_throughputs/blob/master/notebooks/Syseng%20Throughputs%20Repo%20Demo.ipynb)
+
+band | skyCounts
+---- | ---------
+u | 70.402589
+g | 406.358769
+r | 812.576131
+i | 1144.015607
+z | 1715.474293
+y | 2283.488487
+
+2018-07-06, Jim Chiang:
+```
+band   min   mean    median    max
+u       55    112       107    267
+g      358   1686       691  11411
+r      450   1352       922   6226
+i      388   1300      1144   3791
+z      662   1553      1541   3177
+y      548   1750      1785   3100
+```
+
 ## Resource Estimation
 
 [Google Sheet Calculator](https://docs.google.com/spreadsheets/d/1ZC6ByCW_KctBI0Q6F12gVjzPJs3mzbUTJGJPALKy2qw/edit?usp=sharing)
 
 ## Scheduling
-
-Runtime:
-* 10,000 e-/pixel: ~6 hrs (longer for y-band)
 
 [Theta queue policy](https://www.alcf.anl.gov/user-guides/job-scheduling-policy-xc40-systems#queues):
 * node count >= 128 nodes (minimum  allocation): maximum 3:00:00 hours
@@ -40,3 +61,7 @@ visits | nodes
 4 | 756
 5 | 945
 6 | 1134
+
+Runtime:
+* 1,000 e-/pixel: ~40-45 min, 189 nodes (3 hrs) x 3 sensor visits per node
+* 10,000 e-/pixel: ~6 hrs, 3\*189 = 567 nodes (9 hrs) x 1 sensor visit per node
